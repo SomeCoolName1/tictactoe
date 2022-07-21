@@ -1,0 +1,218 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+:root {
+  --cell-size: 100px;
+  --mark-size: calc(var(--cell-size) * 0.9);
+  --boardColour: rgb(238, 238, 238);
+  --typicalBorder: solid black 1px;
+}
+
+body {
+  margin: 0;
+}
+
+.header {
+  text-align: center;
+}
+
+.playerSelection {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  width: 100%;
+}
+
+.playerSelection button {
+  height: 50px;
+  width: 50px;
+  margin: 0px;
+  padding: 0px;
+  border: var(--typicalBorder);
+  border-radius: 25%;
+}
+
+.playerSelection button:active {
+  background: black;
+  color: white;
+}
+
+.selected {
+  background: black;
+  color: white;
+}
+
+.boardBody {
+  text-align: center;
+  /*h-offset v-offset blur*/
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
+    rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
+    rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+  margin: auto;
+  min-width: auto;
+  max-width: 600px;
+  min-height: 600px;
+  padding: 25px;
+  background: var(--boardColour);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.buttonSpace {
+  width: 100%;
+}
+
+#restart {
+  color: black;
+  width: 20%;
+  margin: 0px;
+  padding: 0px;
+  border: var(--typicalBorder);
+  background: var(--boardColour);
+  height: 50px;
+  border-radius: 10%;
+}
+
+#restart:active {
+  background: black;
+  color: white;
+}
+
+.board {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: repeat(3, auto);
+  width: 100%;
+  height: 100%;
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+  border-top: none;
+}
+
+.cell:nth-child(3n + 1) {
+  border-left: none;
+}
+
+.cell:nth-child(3n + 3) {
+  border-right: none;
+}
+
+.cell:last-child,
+.cell:nth-child(8),
+.cell:nth-child(7) {
+  border-bottom: none;
+}
+
+.cell.x,
+.cell.circle {
+  cursor: not-allowed;
+}
+
+/*-----------------------------X-------------------------*/
+.cell.x::before,
+.cell.x::after,
+.cell.circle::before,
+.cell.circle::after {
+  background-color: black;
+}
+
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after,
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+  background-color: lightgrey;
+}
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::before, /*only apply hover effect when not over existing*/
+.board.x .cell:not(.x):not(.circle):hover::after {
+  content: "";
+  position: absolute; /*same base for two cell.x for rotation*/
+  width: calc(var(--mark-size) * 0.15);
+  height: var(--mark-size);
+}
+
+.cell.x::before,
+.board.x .cell:hover::before {
+  transform: rotate(45deg);
+}
+
+.cell.x::after,
+.board.x .cell:hover::after {
+  transform: rotate(-45deg);
+}
+
+/*-----------------------------Circle-------------------------*/
+
+.cell.circle::before,
+.cell.circle::after, 
+.board.circle .cell:not(.x):not(.circle):hover::before, /*only apply hover effect when not over existing*/
+.board.circle .cell:not(.x):not(.circle):hover::after {
+  content: "";
+  position: absolute; /*same base for two cell.x for rotation*/
+  border-radius: 50%;
+}
+
+.cell.circle::before,
+.board.circle .cell:not(.x):not(.circle):hover::before {
+  width: var(--mark-size);
+  height: var(--mark-size);
+}
+
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+  width: calc(var(--mark-size) * 0.7);
+  height: calc(var(--mark-size) * 0.7);
+  background-color: var(--boardColour);
+}
+
+/*----------------------OVERLAY----------------*/
+
+.overlay {
+  display: none;
+}
+
+.overlay.active {
+  display: flex;
+  background: rgba(0, 0, 0, 0.95);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  color: white;
+  margin: auto;
+  align-items: center;
+}
+
+/* #winningMessage {
+  background: white;
+  width: auto;
+  height: auto;
+  border-radius: 10%;
+  padding: 1rem;
+} */
