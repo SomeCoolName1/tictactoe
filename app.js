@@ -114,7 +114,7 @@ function isDraw() {
 function endGame(draw) {
   if (draw) {
     var winningMessageText = document.createElement("h1");
-    winningMessageText.innerText = "Shit Draw";
+    winningMessageText.innerText = "Draw";
     winningMessageTextSpace.appendChild(winningMessageText);
   } else {
     var winningMessageText = document.createElement("h1");
