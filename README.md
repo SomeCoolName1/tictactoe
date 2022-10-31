@@ -1,4 +1,4 @@
-**Sign Up Form**
+**Tic Tac Toe**
 
 This project is part of The Odin Project Javascript curriculum. This project enables users to play Tic Tac Toe.
 
